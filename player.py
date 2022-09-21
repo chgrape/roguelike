@@ -8,6 +8,20 @@ class Player(Entity):
         self.mana = 100
         self.sprite = pygame.image.load("Sprites/player.png")
         self.body = self.sprite.get_rect()
+        self.body.x = self.get_pos()[0]
+        self.body.y = self.get_pos()[1]
+
+    def get_x(self):
+        return Entity.get_x(self)
+    
+    def set_x(self, x):
+        Entity.set_x(self, x)
+
+    def get_y(self):
+        return Entity.get_y(self)
+    
+    def set_y(self, y):
+        Entity.set_y(self, y)
 
     def get_pos(self):
         return Entity.get_pos(self)
@@ -46,6 +60,8 @@ class Player(Entity):
         pass
 
     def draw(self, win): # ?
+        self.body.x = self.get_x()
+        self.body.y = self.get_y()
         win.blit(self.sprite, self.body)
     
 

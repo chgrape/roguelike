@@ -8,8 +8,20 @@ class Entity:
         self.health = 100
         self.sprite = 0
 
+    def get_x(self):
+        return self._x
+    
+    def set_x(self, x):
+        self._x = x
+
+    def get_y(self):
+        return self._y
+    
+    def set_y(self, y):
+        self._y = y
+
     def get_pos(self):
-        return pos
+        return self.pos
 
     def set_pos(self, pos):
         self.pos = pos

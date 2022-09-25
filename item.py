@@ -6,6 +6,7 @@ class Item:
         self.sprite = pygame.image.load(sprite)
         self.isEquipped = isEquipped
         self.slot = 0
+        self.selected = False
 
 class Weapon(Item):
     def __init__(self, name, sprite, isEquipped, atk):

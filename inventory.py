@@ -17,6 +17,8 @@ class Inventory:
                 pygame.draw.rect(win, self.color, pygame.Rect(self.xPos+(66*x),self.yPos, 64, 64))
             for x in range(len(self.items)):
                 win.blit(self.items[x].sprite, (self.xPos+(66*x),self.yPos))
+                if(self.items[x].selected == True):
+                    print("Selcted item at slot: " + str(self.items[x].slot))
 
     def order_slots(self):
         for x in range(len(self.items)):
@@ -34,14 +36,21 @@ class Inventory:
                 self.order_slots()
                 return
         print("Item doesn't exist")
+    
+    def clear_selection(self):
+        for x in range(len(self.items)):
+            if(self.items[x].selected == True):
+                self.items[x].selected = False
+
+    def select(self, entered_slot):
+        if(entered_slot > self.capacity or entered_slot > len(self.items)):
+            print("Slot doesn't exist or is empty")
+        self.clear_selection()
+        for x in self.items:
+            if(x.slot == entered_slot):
+                if(self.items[x.slot-1].selected == True):
+                    print("Item already selected")
+                    return
+                self.items[x.slot-1].selected = True
 
     
-    def toggle_equip(self, Player, space_id):
-        self.items[space_id].isEquipped = not self.items[space_id].isEquipped
-        if (not self.items[space_id].isEquipped):
-            # highlights item and changes player stats
-            pass
-        else:
-            # removes highlight and reverts stat changes
-            pass
-        pass

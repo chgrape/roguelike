@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from inventory import Inventory
+from item import Weapon
 
 win_width = 1000
 win_height = 1000
@@ -11,12 +12,17 @@ pygame.display.set_caption("Game")
 def redrawWindow(win, player, inventory):
     win.fill((0,255,0))
     player.draw(win)
+    inventory.draw(win)
     pygame.display.update()
 
 def main():
     clock = pygame.time.Clock()
     player = Player(100,100,"jivko")
     inventory = Inventory(5, win_height, win_width)
+    weapon1 = Weapon("Sword", "Sprites/sword1.png", False, 2)
+    weapon2 = Weapon("Sword2", "Sprites/bow1.png", False, 2)
+    inventory.add_item(weapon1)
+    inventory.add_item(weapon2)
     run = True
 
     while run:
@@ -38,8 +44,10 @@ def main():
                         player.set_x(player.get_x() - player.get_velocity())
                         player.set_pos((player.get_x(), player.get_y()))
                     if event.key == pygame.K_SPACE:
-                        inventory.toggle(win)
-                        print(inventory.isOpen)
+                        inventory.isOpen = not inventory.isOpen
+                    if event.key == pygame.K_q:
+                        if(inventory.isOpen):
+                            inventory.remove_item(1)
                 
         redrawWindow(win, player, inventory)
 

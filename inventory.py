@@ -1,3 +1,4 @@
+from re import S
 import pygame
 
 class Inventory:
@@ -10,20 +11,31 @@ class Inventory:
         self.selected = 0
         self.color = (10, 10, 10)
 
-    def toggle(self, win):
-        self.isOpen = not self.isOpen
+    def draw(self, win):
         if (self.isOpen):
             for x in range(self.capacity):
-                pygame.draw.rect(win, self.color, pygame.Rect(15, 15, self.xPos+(15*x), self.yPos))
+                pygame.draw.rect(win, self.color, pygame.Rect(self.xPos+(66*x),self.yPos, 64, 64))
+            for x in range(len(self.items)):
+                win.blit(self.items[x].sprite, (self.xPos+(66*x),self.yPos))
+
+    def order_slots(self):
+        for x in range(len(self.items)):
+            self.items[x].slot = x+1
 
     def add_item(self, item):
-        self.items.append(item)
-        # Display function
+        if(len(self.items) +1 < self.capacity):
+            self.items.append(item)
+            self.order_slots()
 
-    def remove_item(self, item_id):
-        self.items.pop(item_id)
-        # Display function
+    def remove_item(self, item_slot):
+        for x in self.items:
+            if(x.slot == item_slot):
+                self.items.pop(x.slot-1)
+                self.order_slots()
+                return
+        print("Item doesn't exist")
 
+    
     def toggle_equip(self, Player, space_id):
         self.items[space_id].isEquipped = not self.items[space_id].isEquipped
         if (not self.items[space_id].isEquipped):

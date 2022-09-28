@@ -47,17 +47,21 @@ def main():
                         inventory.isOpen = not inventory.isOpen
                     if event.key == pygame.K_q:
                         if(inventory.isOpen):
-                            inventory.remove_item(1)
-                    if event.key == pygame.K_1:
+                            for x in inventory.items:
+                                if(x.selected):
+                                    inventory.remove_item(x.slot)
+                    if event.key == pygame.K_1 and inventory.isOpen:
                         inventory.select(1)
-                    if event.key == pygame.K_2:
+                    if event.key == pygame.K_2 and inventory.isOpen:
                         inventory.select(2)
-                    if event.key == pygame.K_3:
+                    if event.key == pygame.K_3 and inventory.isOpen:
                         inventory.select(3)
-                    if event.key == pygame.K_4:
+                    if event.key == pygame.K_4 and inventory.isOpen:
                         inventory.select(4)
-                    if event.key == pygame.K_5:
+                    if event.key == pygame.K_5 and inventory.isOpen:
                         inventory.select(5)
+                    if event.key == pygame.K_e:
+                        inventory.equip()
         redrawWindow(win, player, inventory)
 
 main()
